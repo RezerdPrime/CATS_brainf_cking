@@ -39,7 +39,7 @@ int main() {
     if (W1 == 0 or H1 == 0 or D1 == 0) { W1 = 0; H1 = 0; D1 = 0; } // Ну типа если хотя бы 1 элемент будет равен 0
     // то мы вычитаем фигуру, у которой тупо меньше измерений. Какой смысл вычитать двумерную плоскость из трёхмерного куба?
 
-    string line = "", empty_space = "",
+    string line = "", empty_space = "", the_final_fixing_shit = "",
         subline1 = "", subline2 = "", subline3 = "", subline4 = "", reserveline, // для верхних и передних граней
         right_part1 = "", right_part2 = " |/| + |/| +", /* для боковых граней */
         right_symbols_list[] = { " +", " |", "/|" },
@@ -53,7 +53,7 @@ int main() {
     int pic_y = 3 * H + 2 * D + 1, // Количество строк (максимальная высота 2Д рисунка)
         pic_x = 2 * D + 4 * W + 1, // Количество столбцов (максимальная длина 2Д рисунка)
         shear = 0, // Сдвиг для внешней боковой грани
-        parity_change = 0;
+        parity_change = 0; the_final_fixing_shit.insert(0, pic_x, ' ');// cout << the_final_fixing_shit << "a" << endl;
 
     int count_of_dots = 2 * D,
         count = 0, count2 = 0, /* для чётностей разных секторов */
@@ -82,14 +82,14 @@ int main() {
         if (str_count % 2 == 0) {
 
             line.insert(0, count_of_dots - i, '.');
-            fout << (line + subline1 + right_part2.substr(shear, right_part2.length())).substr(0, sub_line_limit) << endl;///
+            fout << ((line + subline1 + right_part2.substr(shear, right_part2.length())).substr(0, sub_line_limit) + the_final_fixing_shit).substr(0, pic_x) << endl;///
             line = ""; str_count++; sub_line_limit2--;
         }
 
         else {
 
             line.insert(0, count_of_dots - i, '.');
-            fout << (line + subline2 + right_part2.substr(shear, right_part2.length())).substr(0, sub_line_limit) << endl;///
+            fout << ((line + subline2 + right_part2.substr(shear, right_part2.length())).substr(0, sub_line_limit) + the_final_fixing_shit).substr(0, pic_x) << endl;///
             line = ""; str_count++; sub_line_limit2--;
         } pic_str_count++; fin_count++;
     } subline1 = ""; subline2 = "";
